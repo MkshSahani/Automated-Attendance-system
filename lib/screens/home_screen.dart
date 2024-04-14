@@ -1,27 +1,35 @@
+import 'package:automated_attdance_system/screens/course_register_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:automated_attdance_system/widgets/course_list.dart';
 
 class HomeScreen extends StatefulWidget {
 
-  const HomeScreen({super.key, required this.userName});
+  const HomeScreen({super.key, required this.mp});
 
-  final String userName;
+  final Map<String, dynamic> mp;
 
   @override
-  State<StatefulWidget> createState() {
+  State<HomeScreen> createState() {
     return _HomeScreenState();
   }
 
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  void _loadCourseRegisterScreen() {
+
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (cxt) => CourseRegisterScreen(userDetails: widget.mp['user_details'],))
+    );
+  }
   
-  // final userName = widget.userName;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.userName),
+        title: Text(widget.mp['user_details']['fullname'], maxLines: 1,),
       ),
       drawer: Drawer(
         child: ListView(
@@ -36,10 +44,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: Theme.of(context).colorScheme.primary,
                   ),
                   Text(
-                    widget.userName,
+                    widget.mp['user_details']['fullname'],
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      fontSize: 50,
+                      fontSize: 20,
                       color: Theme.of(context).colorScheme.primary
+
                     ),
                   )
                 ],
@@ -47,9 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ListTile(
               title: const Text("Register Course"),
-              onTap: () {
-
-              },
+              onTap:_loadCourseRegisterScreen,
             ),
             ListTile(
               title: const Text("Register Student"),
@@ -59,6 +66,9 @@ class _HomeScreenState extends State<HomeScreen> {
             )
           ],
         ),
+      ),
+      body: CourseListView(
+        courseList: widget.mp['course_details'],
       ),
     );
   }

@@ -63,12 +63,11 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
             );
           }
         );
+      } else {
+        print(resBody['data']);
+        resBody['data']['account_created'] = true;
       }
-      Navigator.of(context).pop({
-        'account_created': true,
-        'username': _usrName,
-        'email': _usrEmail
-      });
+      Navigator.of(context).pop(resBody['data']);
     }
   }
 

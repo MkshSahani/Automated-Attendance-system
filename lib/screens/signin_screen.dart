@@ -55,7 +55,7 @@ class _SiginScreenState extends ConsumerState<SigninScreen> {
         );
       } else {
         Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx) {
-          return HomeScreen(userName: _usrName,);
+          return HomeScreen(mp : resBody['data']);
       }));
       }
     }
@@ -73,7 +73,7 @@ class _SiginScreenState extends ConsumerState<SigninScreen> {
     }
     if(res['account_created']) {
       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx) {
-        return HomeScreen(userName: res['username'],);
+        return HomeScreen(mp : res);
       }));
     }
   }
