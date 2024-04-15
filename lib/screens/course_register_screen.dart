@@ -73,7 +73,7 @@ class _CourseRegisterScreenState extends ConsumerState<CourseRegisterScreen> {
           );
         });
       } else {
-        await showDialog(context: context, builder: (ctx) {
+        final flag = await showDialog(context: context, builder: (ctx) {
           return AlertDialog(
             title: const Text("Course Registered"),
             content: const Center(
@@ -92,6 +92,14 @@ class _CourseRegisterScreenState extends ConsumerState<CourseRegisterScreen> {
           );
         }
       );
+      _courseRegisterFormKey.currentState!.reset();
+      Navigator.of(context).pop({
+        'course_name': _courseName,
+        'course_code': _courseCode,
+        'department': _department,
+        'course_strength' : _courseStrength,
+        'username': widget.userDetails['username']
+      });
     }
   }
   }

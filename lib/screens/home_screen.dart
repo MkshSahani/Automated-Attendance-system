@@ -1,12 +1,13 @@
+import 'package:automated_attdance_system/screens/course_attendance_screen.dart';
 import 'package:automated_attdance_system/screens/course_register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:automated_attdance_system/widgets/course_list.dart';
 
 class HomeScreen extends StatefulWidget {
 
-  const HomeScreen({super.key, required this.mp});
+  HomeScreen({super.key, required this.mp});
 
-  final Map<String, dynamic> mp;
+  Map<String, dynamic>? mp;
 
   @override
   State<HomeScreen> createState() {
@@ -17,19 +18,38 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
-  void _loadCourseRegisterScreen() {
+  void _loadCourseRegisterScreen() async {
 
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (cxt) => CourseRegisterScreen(userDetails: widget.mp['user_details'],))
+    final dynamic courseDetails = await Navigator.of(context).push(
+      MaterialPageRoute(builder: (cxt) {
+        return CourseRegisterScreen(userDetails: widget.mp!['user_details'],);
+      }
+      )
+    );
+    setState(() {
+      print("------------------------------------------------------");
+      widget.mp!['course_details'].add(courseDetails);
+      print("-------------------------------------------------------");
+    });
+  }
+
+  void _loadCourseAttendanceScreen(dynamic courseDetail) async {
+      await Navigator.of(context).push(
+        MaterialPageRoute(builder: (cxt) {
+          return CourseAttendenceScreen(courseDetails: courseDetail);
+        }
+      )
     );
   }
   
 
   @override
   Widget build(BuildContext context) {
+    print(widget.mp!['course_details']);
+    final List<dynamic> courseList = widget.mp!['course_details'];
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.mp['user_details']['fullname'], maxLines: 1,),
+        title: Text(widget.mp!['user_details']['fullname'], maxLines: 1,),
       ),
       drawer: Drawer(
         child: ListView(
@@ -44,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: Theme.of(context).colorScheme.primary,
                   ),
                   Text(
-                    widget.mp['user_details']['fullname'],
+                    widget.mp!['user_details']['fullname'],
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                       fontSize: 20,
                       color: Theme.of(context).colorScheme.primary
@@ -68,7 +88,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       body: CourseListView(
-        courseList: widget.mp['course_details'],
+        courseList: courseList,
+        onTapCourse: _loadCourseAttendanceScreen,
       ),
     );
   }
