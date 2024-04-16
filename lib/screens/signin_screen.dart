@@ -41,9 +41,19 @@ class _SiginScreenState extends ConsumerState<SigninScreen> {
           context: context,
           builder: (ctx) {
             return AlertDialog(
-              title: const Text("Alert"),
-              content: Center(
-                child: Text(resBody['message']),
+              title: Text(
+                "Alert",
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                color: Theme.of(context).colorScheme.onBackground
+              ),
+                ),
+              content: SingleChildScrollView(
+                child: Text(
+                  resBody['message'],
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    color: Theme.of(context).colorScheme.onBackground
+                  ),
+                  ),
               ),
               actions: [
                 TextButton(onPressed: () {

@@ -1,4 +1,5 @@
 import 'package:automated_attdance_system/providers/url_providers.dart';
+import 'package:automated_attdance_system/screens/new_student_regiter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -23,6 +24,12 @@ class _CourseAttendenceScreenState extends ConsumerState<CourseAttendenceScreen>
 
   }
 
+  void _registerNewStudent() async {
+    Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
+      return NewStudentRegister(courseDetails: widget.courseDetails);
+    }));
+  }
+
 
 
   @override
@@ -31,9 +38,9 @@ class _CourseAttendenceScreenState extends ConsumerState<CourseAttendenceScreen>
       appBar: AppBar(
         title: Text(widget.courseDetails['course_code']),
         actions: [
-          ElevatedButton(onPressed: () {
-
-          }, child: const Text("Register Student"))
+          ElevatedButton(
+            onPressed: _registerNewStudent, 
+          child: const Text("Register Student"))
         ],
       ),
     );

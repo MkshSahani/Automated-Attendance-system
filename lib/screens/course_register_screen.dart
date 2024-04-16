@@ -56,9 +56,19 @@ class _CourseRegisterScreenState extends ConsumerState<CourseRegisterScreen> {
       if(res['status_code'] != 200) {
         await showDialog(context: context, builder: (ctx) {
           return AlertDialog(
-            title: const Text("Registration Failed"),
-            content: Center(
-              child: Text(res['message']),
+            title: Text(
+              "Registration Failed",
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                color: Theme.of(context).colorScheme.onBackground
+              ),              
+              ),
+            content: SingleChildScrollView(
+              child: Text(
+                res['message'],
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                color: Theme.of(context).colorScheme.onBackground
+              ),
+                ),
             ),
             actions: [
               Row(
@@ -75,9 +85,19 @@ class _CourseRegisterScreenState extends ConsumerState<CourseRegisterScreen> {
       } else {
         final flag = await showDialog(context: context, builder: (ctx) {
           return AlertDialog(
-            title: const Text("Course Registered"),
-            content: const Center(
-              child: Text("Course Registered Successfully"),
+            title: Text(
+              "Course Registered",
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                color: Theme.of(context).colorScheme.onBackground
+              ),
+              ),
+            content: SingleChildScrollView(
+              child: Text(
+                "Course Registered Successfully",
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                color: Theme.of(context).colorScheme.onBackground
+              ),
+                ),
             ),
             actions: [
               Row(
