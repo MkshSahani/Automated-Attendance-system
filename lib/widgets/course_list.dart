@@ -12,7 +12,7 @@ class CourseListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView(
       padding: const EdgeInsets.all(24),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, childAspectRatio: 3 / 2, crossAxisSpacing: 20, mainAxisSpacing: 20),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 3 / 2, crossAxisSpacing: 20, mainAxisSpacing: 20),
       children: courseList.map((course) {
         return CourseItem(
           courseDetails: course,
