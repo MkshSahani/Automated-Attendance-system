@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:automated_attdance_system/providers/url_providers.dart';
 import 'package:image_picker/image_picker.dart';
@@ -90,10 +89,71 @@ class _AttendaneScreenState extends ConsumerState<AttendanceScreen> {
       request.fields['course_code'] = widget.courseDetails['course_code'];
       request.fields['username'] = widget.courseDetails['username'];
       request.fields['number_of_picture'] = _selectedImages!.length.toString();
+      request.fields['date'] = formatter.format(_selectedDate!);
       final res = await request.send();
       var response = await http.Response.fromStream(res);
       final Map<String, dynamic> resBody = json.decode(response.body);
-      print(resBody);
+      if(resBody['status_code'] != 200) {
+        await showDialog(context: context, builder: (ctx) {
+          return AlertDialog(
+            title: Text(
+              "Failed",
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                color: Theme.of(context).colorScheme.onBackground
+              ),              
+              ),
+            content: SingleChildScrollView(
+              child: Text(
+                resBody['message'],
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                color: Theme.of(context).colorScheme.onBackground
+              ),
+                ),
+            ),
+            actions: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ElevatedButton(onPressed: () {
+                    Navigator.of(context).pop();
+                  }, child: const Text("Ok"))
+                ],
+              )
+            ],
+          );
+        });
+      } else {
+        final flag = await showDialog(context: context, builder: (ctx) {
+          return AlertDialog(
+            title: Text(
+              "Attendance Registered",
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                color: Theme.of(context).colorScheme.onBackground
+              ),
+              ),
+            content: SingleChildScrollView(
+              child: Text(
+                "Attendance Registered Successfully",
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                color: Theme.of(context).colorScheme.onBackground
+              ),
+                ),
+            ),
+            actions: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ElevatedButton(onPressed: () {
+                    Navigator.of(context).pop();
+                  }, child: const Text("Ok"))
+                ],
+              )
+            ],
+          );
+        }
+      );
+      Navigator.of(context).pop({});
+    }
     }
   }
 

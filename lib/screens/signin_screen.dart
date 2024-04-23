@@ -124,6 +124,14 @@ class _SiginScreenState extends ConsumerState<SigninScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
+              Text(
+                "Log In",
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  color: Theme.of(context).colorScheme.onBackground,
+                  fontSize: 20
+                ),  
+              ),
+              SizedBox(height: 20,),
               Form(
                 key: _loginFormKey,
                 child: Column(

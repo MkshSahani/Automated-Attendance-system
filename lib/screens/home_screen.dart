@@ -2,6 +2,7 @@ import 'package:automated_attdance_system/screens/course_attendance_screen.dart'
 import 'package:automated_attdance_system/screens/course_register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:automated_attdance_system/widgets/course_list.dart';
+import 'package:automated_attdance_system/screens/signin_screen.dart';
 
 class HomeScreen extends StatefulWidget {
 
@@ -79,9 +80,9 @@ class _HomeScreenState extends State<HomeScreen> {
               onTap:_loadCourseRegisterScreen,
             ),
             ListTile(
-              title: const Text("Register Student"),
+              title: const Text("Logout"),
               onTap: () {
-
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx) => const SigninScreen()));
               },
             )
           ],

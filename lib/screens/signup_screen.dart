@@ -47,7 +47,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
       final Map<String, dynamic> resBody  = json.decode(response.body);
       print(resBody['status_code']);
       if(resBody['status_code'] != 200) {
-        showDialog(
+        await showDialog(
           context: context,
           builder: (ctx) {
             return AlertDialog(
@@ -76,8 +76,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
       } else {
         print(resBody['data']);
         resBody['data']['account_created'] = true;
+        Navigator.of(context).pop(resBody['data']);
       }
-      Navigator.of(context).pop(resBody['data']);
     }
   }
 
@@ -103,6 +103,13 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
             key: _signupFormKey,
             child: Column(
               children: [
+                Text(
+                  "Sign up",
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    color: Theme.of(context).colorScheme.onBackground,
+                    fontSize: 20
+                  ),  
+                ),
                 TextFormField(
                   decoration: InputDecoration(
                     icon: Icon(Icons.person, color: Theme.of(context).colorScheme.primary,),
