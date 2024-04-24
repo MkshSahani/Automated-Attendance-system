@@ -164,6 +164,7 @@ class _AttendaneScreenState extends ConsumerState<AttendanceScreen> {
         title: Text("Take Attendance - ${widget.courseDetails['course_code']}"),
       ),
       body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
         child: Column(
           children: [
             Center(

@@ -191,6 +191,7 @@ class _NewStudentRegsiterState extends ConsumerState<NewStudentRegister> {
             ImageInput(onPickedImage: (img) {
               _onSelectImage(img);
             }),
+            const SizedBox(height: 16,),
             Center(
               child: ElevatedButton(
                 child: const Text("Register"),
