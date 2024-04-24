@@ -94,10 +94,9 @@ class _SiginScreenState extends ConsumerState<SigninScreen> {
 
   @override 
   Widget build(BuildContext context) {
-    print("=============== build method signup =================");
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Attdance System"),
+        title: const Text("Attendance System"),
         actions: [
           TextButton.icon(
             icon: const Icon(Icons.person),
@@ -156,6 +155,7 @@ class _SiginScreenState extends ConsumerState<SigninScreen> {
                     ),
                     const SizedBox(height: 20,),
                     TextFormField(
+                      obscureText: true,
                       decoration:  InputDecoration(
                         icon: Icon(Icons.key_sharp, color: Theme.of(context).colorScheme.primary),
                         label: const Text("password")
@@ -186,7 +186,7 @@ class _SiginScreenState extends ConsumerState<SigninScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Crate a new Account", style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  Text("Create a new Account", style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     color: Theme.of(context).colorScheme.onBackground
                   ),),
                   TextButton(onPressed: _selectSignupOption, 

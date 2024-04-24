@@ -27,6 +27,10 @@ class _HomeScreenState extends State<HomeScreen> {
       }
       )
     );
+    print(courseDetails);
+    if(courseDetails == null) {
+      return;
+    }
     setState(() {
       print("------------------------------------------------------");
       widget.mp!['course_details'].add(courseDetails);
@@ -48,6 +52,23 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     print(widget.mp!['course_details']);
     final List<dynamic> courseList = widget.mp!['course_details'];
+
+    Widget content = CourseListView(
+        courseList: courseList,
+        onTapCourse: _loadCourseAttendanceScreen,
+      );
+    
+    if(courseList.isEmpty) {
+      content = Center(
+        child: Text(
+          "No Course Registered Yet!",
+          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+            color: Theme.of(context).colorScheme.onBackground
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.mp!['user_details']['fullname'], maxLines: 1,),
@@ -88,10 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      body: CourseListView(
-        courseList: courseList,
-        onTapCourse: _loadCourseAttendanceScreen,
-      ),
+      body: content
     );
   }
 
